@@ -1,0 +1,82 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "last_modification_timestamp": 1770202960897,
+  "agent_name": "Multi-State Agent",
+  "version_description": "Eleanor Cybersecurity Assistant\n",
+  "response_engine": {
+    "type": "retell-llm",
+    "llm_id": "llm_62af2dc34b991707feb77d68b2c8",
+    "version": 0
+  },
+  "language": "en-US",
+  "data_storage_setting": "basic_attributes_only",
+  "opt_in_signed_url": true,
+  "version": 0,
+  "is_published": true,
+  "version_title": "1.0",
+  "post_call_analysis_model": "gpt-4.1-mini",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "analysis_successful_prompt": "Evaluate whether the agent had a successful call with the user. For a successful call, the agent should have a complete conversation with user, finished the task, and have not ran into technical issues, or caused user frustration. Besides, the agent was not blocked by a call screen or encountered voicemail.",
+  "analysis_summary_prompt": "Write a 1-3 sentence summary of the call based on the call transcript. Should capture the important information and actions taken during the call.",
+  "voice_id": "11labs-Cimo",
+  "enable_backchannel": true,
+  "backchannel_words": [
+    "ya",
+    "yeah",
+    "alrightie",
+    "sure thing"
+  ],
+  "max_call_duration_ms": 3600000,
+  "interruption_sensitivity": 0.9,
+  "normalize_for_speech": true,
+  "voicemail_option": {
+    "action": {
+      "type": "static_text",
+      "text": "Hey {{user_name}}, sorry we could not reach you directly. Please give us a callback if you can."
+    }
+  },
+  "ivr_option": {
+    "action": {
+      "type": "hangup"
+    }
+  },
+  "stt_mode": "accurate",
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "denoising_mode": "noise-and-background-speech-cancellation",
+  "retellLlmData": {
+    "llm_id": "llm_62af2dc34b991707feb77d68b2c8",
+    "version": 0,
+    "model": "gpt-4.1",
+    "tool_call_strict_mode": true,
+    "general_prompt": "Eleanor — Brand / Platform Description\n\nEleanor is a next-generation innovation platform blending technology, fashion, cybersecurity, and immersive digital experiences. Built with a mission to empower creativity, protect privacy, and uplift communities, Eleanor merges artistic storytelling with advanced encryption, augmented reality, and interactive design.\n\nEleanor is not just a brand — it is a movement toward a smarter, safer, and more expressive digital future, designed to inspire ambition, protect identity, and create meaningful impact in South Africa and beyond.\n\nYour Website — Master Platform Description\n\nYour website is a high-end immersive digital ecosystem engineered to showcase elite cybersecurity expertise, advanced encryption research, and next-generation interactive experiences.\n\nIt combines steampunk, cyberpunk, and ultra-futuristic aesthetics with functional real-world tools — including secure data systems, AR-driven storytelling, and experimental interfaces — to create an unforgettable, multidimensional user experience.\n\nThis platform serves as:\n\nA portfolio of elite technical capabilities\n\nA live cybersecurity lab\n\nA launchpad for advanced encryption products\n\nA proof-of-skill environment demonstrating real-world defensive and offensive security intelligence\n\nIt is designed to instantly signal top-tier talent, innovation, and authority.\n\nAHE — Adaptive Hashing Encryption Description\n\nAdaptive Hashing Encryption (AHE) is a proprietary next-generation cryptographic framework designed to dynamically evolve its hashing and encryption behavior in response to threat patterns, computational environments, and attack vectors.\n\nUnlike traditional static encryption models, AHE introduces adaptive entropy modulation, multi-layer hashing evolution, and attack-resilient transformation cycles, making it significantly more resistant to brute-force, collision, replay, and future computational threats.\n\nAHE is built to withstand:\n\nClassical cryptanalysis\n\nHigh-scale automated attacks\n\nPattern-based exploit attempts\n\nEmerging post-quantum risk models\n\nThis system represents a new class of encryption architecture, prioritizing resilience, unpredictability, and long-term cryptographic survivability.\n\nCybersecurity Assistant — AI Security Engine Description\n\nThe Cybersecurity Assistant is an intelligent AI-powered security engine designed to automate threat detection, vulnerability analysis, encryption advisory, and defensive strategy generation.\n\nIt functions as a real-time cyber defense co-pilot, capable of:\n\nIdentifying anomalies and suspicious activity\n\nSimulating potential attack scenarios\n\nRecommending mitigation strategies\n\nAssisting with secure architecture design\n\nSupporting encryption, compliance, and privacy workflows\n\nBuilt for speed, precision, and elite-level security reasoning, the assistant acts as a scalable digital security analyst, empowering organizations and individuals to operate at a higher defensive intelligence level.",
+    "general_tools": [
+      {
+        "type": "end_call",
+        "name": "end_call",
+        "description": "End the call when user has to leave (like says bye) or you are instructed to do so."
+      }
+    ],
+    "states": [
+      {
+        "name": "new_state_1",
+        "state_prompt": "",
+        "edges": [],
+        "tools": []
+      }
+    ],
+    "starting_state": "new_state_1",
+    "start_speaker": "agent",
+    "knowledge_base_ids": [],
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "last_modification_timestamp": 1770202031203,
+    "is_published": true
+  }
+}
