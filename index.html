@@ -21463,29 +21463,15 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 <!--  Chat Widget Loader with JSON reference -->
 <!-- Retell Chat Widget Loader -->
-<script>
-  window.addEventListener('DOMContentLoaded', async () => {
-    // Optional: load JSON config if you want
-    try {
-      const response = await fetch('/public/agent/retell-agent.json');
-      if (response.ok) {
-        const config = await response.json();
-        console.log('Agent config loaded:', config);
-      }
-    } catch (err) {
-      console.warn('JSON config not loaded:', err);
-    }
-
-    // Load Retell Chat Widget
-    const retellScript = document.createElement('script');
-    retellScript.id = "retell-widget";
-    retellScript.type = "module";
-    retellScript.src = "https://dashboard.retellai.com/retell-widget.js";
-    retellScript.dataset.publicKey = "public_key_333bbac21902a9f3c572e";
-    retellScript.dataset.agentId = "agent_575ceeafb015267da8c7f29173";
-    document.body.appendChild(retellScript);
-  });
-</script>
+<script
+  id="retell-widget"
+  src="https://dashboard.retellai.com/retell-widget.js"
+  type="module"
+  data-public-key="public_key_333bbac21902a9f3c572e"
+  data-agent-id="agent_575ceeafb015267da8c7f29173"
+  data-widget="callback"   <!-- voice mode -->
+  data-phone-number="+27730814084"
+></script>
 </body>
 
 </html>
