@@ -4,13 +4,7 @@
 
 
   <!-- Retell Chat Widget -->
-  <script
-    id="retell-widget"
-    src="https://dashboard.retellai.com/retell-widget.js"
-  
-    data-public-key="public_key_333bbac21902a9f3c572e"
-    data-agent-id="agent_575ceeafb015267da8c7f29173"
-  ></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ramabhadra&display=swap" rel="stylesheet">
@@ -21467,13 +21461,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-  <script
-    id="retell-widget"
-    src="https://dashboard.retellai.com/retell-widget.js"
-  
-    data-public-key="public_key_333bbac21902a9f3c572e"
-    data-agent-id="agent_575ceeafb015267da8c7f29173"
-  ></script>
+<!-- Retell Chat Widget Loader with JSON reference -->
+<script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    // 1️⃣ Load the JSON configuration (optional)
+    try {
+      const response = await fetch('/public/agent/retail/agent.json');
+      if (!response.ok) throw new Error('JSON file not found');
+      const config = await response.json();
+      console.log('Agent config loaded:', config);
+      // Optionally, you can pass config to the widget if needed
+    } catch (err) {
+      console.warn('Could not load JSON config:', err);
+    }
+
+    // 2️⃣ Load Retell Chat Widget
+    const retellScript = document.createElement('script');
+    retellScript.id = "retell-widget";
+    retellScript.type = "module";
+    retellScript.src = "https://dashboard.retellai.com/retell-widget.js";
+    retellScript.dataset.publicKey = "public_key_333bbac21902a9f3c572e";
+    retellScript.dataset.agentId = "agent_575ceeafb015267da8c7f29173";
+    document.body.appendChild(retellScript);
+  });
+</script>
 </body>
 
 </html>
