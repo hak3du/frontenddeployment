@@ -21461,7 +21461,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-<!-- Retell Chat Widget Loader with JSON reference -->
+<!--  Chat Widget Loader with JSON reference -->
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
     // 1️⃣ Load the JSON configuration (optional)
@@ -21478,7 +21478,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2️⃣ Load Retell Chat Widget
     const retellScript = document.createElement('script');
     retellScript.id = "retell-widget";
-    retellScript.type = "module";
     retellScript.src = "https://dashboard.retellai.com/retell-widget.js";
     retellScript.dataset.publicKey = "public_key_333bbac21902a9f3c572e";
     retellScript.dataset.agentId = "agent_575ceeafb015267da8c7f29173";
