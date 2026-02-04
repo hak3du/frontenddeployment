@@ -5864,7 +5864,7 @@ worldBtn.addEventListener('click', () => {
 :root{
   --ahe-bg: #05070a;
   --ahe-accent-cyan: #14f2e0;
-  --ahe-accent-magenta: #ff6fb7;
+  --ahe-accent-ma: #ff6fb7;
   --ahe-gold: #E6B75B;
   --ahe-text: #00ffd;
   --ahe-muted: #98A0AB;
@@ -21462,22 +21462,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <!--  Chat Widget Loader with JSON reference -->
+<!-- Retell Chat Widget Loader -->
 <script>
   window.addEventListener('DOMContentLoaded', async () => {
-    // 1️⃣ Load the JSON configuration (optional)
+    // Optional: load JSON config if you want
     try {
       const response = await fetch('/public/agent/retell-agent.json');
-      if (!response.ok) throw new Error('JSON file not found');
-      const config = await response.json();
-      console.log('Agent config loaded:', config);
-      // Optionally, you can pass config to the widget if needed
+      if (response.ok) {
+        const config = await response.json();
+        console.log('Agent config loaded:', config);
+      }
     } catch (err) {
-      console.warn('Could not load JSON config:', err);
+      console.warn('JSON config not loaded:', err);
     }
 
-    // 2️⃣ Load Retell Chat Widget
+    // Load Retell Chat Widget
     const retellScript = document.createElement('script');
     retellScript.id = "retell-widget";
+    retellScript.type = "module";
     retellScript.src = "https://dashboard.retellai.com/retell-widget.js";
     retellScript.dataset.publicKey = "public_key_333bbac21902a9f3c572e";
     retellScript.dataset.agentId = "agent_575ceeafb015267da8c7f29173";
