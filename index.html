@@ -21466,7 +21466,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('DOMContentLoaded', async () => {
     // 1️⃣ Load the JSON configuration (optional)
     try {
-      const response = await fetch('/public/agent/retail/agent.json');
+      const response = await fetch('/public/agent/retell-agent.json');
       if (!response.ok) throw new Error('JSON file not found');
       const config = await response.json();
       console.log('Agent config loaded:', config);
