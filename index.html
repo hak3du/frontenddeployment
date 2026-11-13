@@ -376,7 +376,7 @@ main{position:relative;z-index:1}
 </head>
 <body>
 <div class="gridbg" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div id="scrollProgress" aria-hidden="true"></div>
-<button id="themeBtn" type="button" aria-label="Toggle light / dark mode">◐</button>
+
 <header><div class="wrap nav">
 <a class="brand" href="#top">AHE<span> // RESEARCH_OS</span></a>
 <nav class="navlinks" id="navlinks"><a href="#experience">System</a><a href="#field-notes">Field notes</a><a href="#gallery">Archive</a><a href="#demo">API lab</a><a href="#research">Evaluation</a></nav>
@@ -514,6 +514,13 @@ async function health(){try{const r=await fetch(API+"/health");if(!r.ok)throw Er
 async function post(path,data){const r=await fetch(API+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw Error(d.detail||d.error||"HTTP "+r.status);return d;}
 $("encryptBtn").addEventListener("click",async function(){const message=$("message").value.trim(),password=$("password").value;if(!message||!password){$("output").textContent="Enter both a message and test password.";return;}this.disabled=true;$("output").textContent="Requesting encryption…";try{const d=await post("/encrypt",{message,password});lastPassword=password;$("output").textContent=JSON.stringify(d,null,2);}catch(e){$("output").textContent="Encryption failed: "+e.message;}finally{this.disabled=false;}});
 $("decryptBtn").addEventListener("click",async function(){const password=$("password").value||lastPassword;if(!password){$("output").textContent="Enter the password used for encryption.";return;}this.disabled=true;$("output").textContent="Requesting decryption…";try{const d=await post("/decrypt",{password});$("output").textContent=JSON.stringify(d,null,2);}catch(e){$("output").textContent="Decryption failed: "+e.message;}finally{this.disabled=false;}});
+
+/* Portfolio-OS chapter rail: direct navigation and active chapter tracking. */
+const railItems=[...document.querySelectorAll("#rail .rl")];
+railItems.forEach(item=>item.addEventListener("click",()=>{const target=document.getElementById(item.dataset.t);if(target)target.scrollIntoView({behavior:"smooth",block:"start"});}));
+const chapterObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){railItems.forEach(item=>item.classList.toggle("active",item.dataset.t===entry.target.id));}}),{rootMargin:"-38% 0px -38% 0px",threshold:0});
+["top","experience","field-notes","gallery","architecture","demo","research"].forEach(id=>{const el=document.getElementById(id);if(el)chapterObserver.observe(el);});
+
 health();
 })();
 </script>
