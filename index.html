@@ -1,275 +1,117 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090d12">
-  <meta name="description" content="Adaptive Hashing Encryption — a modular cryptographic research project exploring adaptive protection for the post-quantum era.">
-  <title>AHE — Adaptive Hashing Encryption</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#090d12;--panel:#10171f;--panel2:#131d27;--line:rgba(206,224,238,.12);--muted:#91a0ad;--text:#edf4f7;--cyan:#8be8ed;--mint:#b6f2d8;--blue:#86aef7;--max:1180px;--mono:"DM Mono",monospace;--sans:Manrope,system-ui,sans-serif}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 78% 7%,rgba(71,157,173,.12),transparent 34%),radial-gradient(ellipse at 8% 44%,rgba(81,112,168,.09),transparent 32%),linear-gradient(180deg,#090d12,#0a1016 58%,#090d12)}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}.wrap{width:min(var(--max),calc(100% - 48px));margin-inline:auto}.mono{font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;font-size:.68rem;color:var(--cyan)}.muted{color:var(--muted)}.eyebrow{display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:24px;height:1px;background:var(--cyan)}.topbar{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(9,13,18,.78);backdrop-filter:blur(18px)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.04em}.brand-mark{width:34px;height:34px;border:1px solid rgba(139,232,237,.5);border-radius:10px;display:grid;place-items:center;color:var(--cyan);font-family:var(--mono);font-size:.8rem;box-shadow:inset 0 0 18px rgba(139,232,237,.08)}.brand small{display:block;font:10px var(--mono);color:var(--muted);letter-spacing:.16em;margin-top:1px}.nav-links{display:flex;align-items:center;gap:30px;color:#b4c0c9;font-size:.82rem}.nav-links a:hover{color:var(--cyan)}.nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid rgba(139,232,237,.4);border-radius:7px;padding:11px 16px;color:var(--text);font-size:.8rem;font-weight:700;transition:.2s ease;background:rgba(139,232,237,.06)}.nav-cta:hover,.button:hover{transform:translateY(-2px);border-color:var(--cyan);background:rgba(139,232,237,.13)}.button.primary{background:var(--cyan);color:#071014;border-color:var(--cyan)}.button.primary:hover{background:#b1f7f1}.button.ghost{background:transparent;border-color:var(--line)}.menu-toggle{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:7px;padding:8px 10px}
-    .hero{padding:94px 0 72px;position:relative}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center}.hero h1{font-size:clamp(3rem,6.5vw,6.3rem);line-height:.99;letter-spacing:-.075em;font-weight:600;margin:24px 0 25px;max-width:740px}.hero h1 em{font-style:normal;color:var(--cyan)}.hero-copy{max-width:570px;color:#a9b6c0;font-size:1.04rem;line-height:1.8}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}.hero-note{display:flex;align-items:center;gap:10px;margin-top:38px;color:#71818e;font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase}.live-dot{width:7px;height:7px;border-radius:50%;background:#9ce6c4;box-shadow:0 0 0 5px rgba(156,230,196,.09)}.visual-shell{position:relative;min-height:480px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(24,39,49,.82),rgba(11,17,24,.65));overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.25)}.visual-shell:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(170,211,220,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(170,211,220,.045) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(180deg,#000,transparent 95%)}.visual-label{position:absolute;left:24px;top:22px;z-index:2}.visual-label span{display:block;color:var(--muted);font:10px var(--mono);margin-top:6px}.orbital{position:absolute;inset:55px 20px 40px;display:grid;place-items:center}.orbital svg{width:100%;max-width:500px;overflow:visible}.orbit{fill:none;stroke:rgba(139,232,237,.28);stroke-width:1}.orbit.dash{stroke-dasharray:4 8;stroke:rgba(139,232,237,.4)}.node{fill:#9be9e5;filter:drop-shadow(0 0 8px rgba(139,232,237,.8))}.core{fill:#10242b;stroke:#9be9e5;stroke-width:1.4;filter:drop-shadow(0 0 25px rgba(139,232,237,.35))}.core-text{fill:#eafafa;font:12px var(--mono);letter-spacing:2px}.orbit-caption{fill:#8fa6b0;font:9px var(--mono);letter-spacing:1.4px}.visual-foot{position:absolute;bottom:20px;left:24px;right:24px;display:flex;justify-content:space-between;color:#7f929d;font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase}.scroll-line{height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5;position:absolute;bottom:0;left:0;width:100%}
-    .signal-row{border-block:1px solid var(--line);background:rgba(255,255,255,.015)}.signals{display:grid;grid-template-columns:repeat(4,1fr)}.signal{padding:23px 22px;border-right:1px solid var(--line)}.signal:last-child{border:0}.signal strong{display:block;font-size:.9rem;font-weight:700}.signal span{display:block;color:var(--muted);font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
-    section.content-section{padding:110px 0}.section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start;margin-bottom:48px}.section-head h2{font-size:clamp(2.1rem,4vw,3.8rem);line-height:1.05;letter-spacing:-.06em;font-weight:600;margin:15px 0 0}.section-head p{color:#9baab4;max-width:620px;margin:12px 0 0;line-height:1.85}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:linear-gradient(145deg,rgba(20,30,39,.9),rgba(13,20,27,.9));border:1px solid var(--line);border-radius:12px;padding:25px;min-height:220px;transition:.25s ease}.card:hover{transform:translateY(-4px);border-color:rgba(139,232,237,.35)}.card-index{font:10px var(--mono);color:var(--cyan)}.card h3{font-size:1.08rem;margin:34px 0 9px;letter-spacing:-.025em}.card p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.75}
-    .architecture{background:linear-gradient(180deg,rgba(16,23,31,.3),rgba(16,23,31,.72),rgba(16,23,31,.3));border-block:1px solid var(--line)}.architecture-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}.architecture-copy h2{font-size:clamp(2.4rem,4.4vw,4.3rem);line-height:1.04;letter-spacing:-.065em;font-weight:600;margin:18px 0}.architecture-copy p{color:var(--muted);line-height:1.85;max-width:520px}.architecture-list{display:grid;gap:10px;margin-top:28px}.architecture-list div{display:flex;align-items:center;gap:12px;color:#c8d3d9;font-size:.85rem}.architecture-list b{color:var(--cyan);font:10px var(--mono)}.stack{display:grid;gap:9px}.stack-layer{display:grid;grid-template-columns:54px 1fr auto;gap:16px;align-items:center;padding:20px;border:1px solid var(--line);border-radius:9px;background:rgba(10,17,23,.78);position:relative;overflow:hidden}.stack-layer:after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cyan);opacity:.55}.stack-layer:nth-child(2):after{background:var(--blue)}.stack-layer:nth-child(3):after{background:var(--mint)}.stack-num{font:11px var(--mono);color:var(--cyan)}.stack-layer strong{display:block;font-size:.9rem}.stack-layer small{display:block;color:var(--muted);font-size:.75rem;margin-top:3px}.stack-tag{font:9px var(--mono);color:#7d929e;text-transform:uppercase;letter-spacing:.1em}
-    .demo-panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#0e151c}.demo-aside{padding:36px;background:linear-gradient(145deg,rgba(26,47,55,.75),rgba(13,20,27,.8));border-right:1px solid var(--line)}.demo-aside h3{font-size:1.7rem;line-height:1.15;letter-spacing:-.05em;margin:18px 0}.demo-aside p{color:var(--muted);font-size:.86rem;line-height:1.8}.api-status{display:flex;align-items:center;gap:10px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);font:10px var(--mono);color:#a9b9c2;text-transform:uppercase;letter-spacing:.08em}.api-status i{width:7px;height:7px;border-radius:50%;background:#e5b66e}.api-status.ok i{background:#9ce6c4;box-shadow:0 0 0 4px rgba(156,230,196,.08)}.demo-form{padding:36px}.field{display:grid;gap:8px;margin-bottom:18px}.field label{font:10px var(--mono);color:#9eb0ba;text-transform:uppercase;letter-spacing:.12em}.field textarea,.field input{width:100%;border:1px solid var(--line);border-radius:7px;background:#090f15;color:var(--text);padding:13px 14px;outline:none;font-size:.86rem;resize:vertical}.field textarea:focus,.field input:focus{border-color:rgba(139,232,237,.65);box-shadow:0 0 0 3px rgba(139,232,237,.07)}.field textarea{min-height:105px}.demo-actions{display:flex;gap:10px;flex-wrap:wrap}.demo-output{margin-top:18px;border:1px solid var(--line);border-radius:8px;background:#090f15;padding:14px;min-height:76px;color:#a8b7c0;font:11px/1.7 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}.demo-disclaimer{font-size:.7rem;color:#72818c;margin-top:12px;line-height:1.6}
-    .research-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.research-item{border:1px solid var(--line);border-radius:11px;padding:25px;background:rgba(15,23,31,.65)}.research-item h3{font-size:1rem;margin:0 0 8px}.research-item p{color:var(--muted);font-size:.84rem;margin:0;line-height:1.75}.research-item .mono{display:block;margin-bottom:22px}.honesty{margin-top:18px;border:1px solid rgba(139,232,237,.2);border-radius:10px;padding:22px 24px;background:rgba(139,232,237,.045);display:grid;grid-template-columns:30px 1fr;gap:14px}.honesty b{color:var(--cyan);font:16px var(--mono)}.honesty p{margin:0;color:#aab8c1;font-size:.8rem;line-height:1.75}
-    .closing{padding:80px 0 95px!important}.closing-box{border:1px solid rgba(139,232,237,.25);border-radius:16px;padding:55px;background:radial-gradient(ellipse at 90% 0%,rgba(139,232,237,.12),transparent 45%),#101820;display:flex;align-items:center;justify-content:space-between;gap:30px}.closing-box h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;letter-spacing:-.06em;font-weight:600;margin:12px 0}.closing-box p{color:var(--muted);margin:0;max-width:560px;font-size:.88rem}.footer{border-top:1px solid var(--line);padding:27px 0;color:#788893;font-size:.72rem}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}.footer-links{display:flex;gap:22px}.footer a:hover{color:var(--cyan)}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
-    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:38px}.visual-shell{min-height:390px}.section-head{grid-template-columns:1fr;gap:16px}.architecture-grid{grid-template-columns:1fr;gap:35px}.demo-panel{grid-template-columns:1fr}.demo-aside{border-right:0;border-bottom:1px solid var(--line)}.signals{grid-template-columns:repeat(2,1fr)}.signal:nth-child(2){border-right:0}.signal:nth-child(-n+2){border-bottom:1px solid var(--line)}}
-    @media(max-width:640px){.wrap{width:min(var(--max),calc(100% - 32px))}.nav{height:66px}.menu-toggle{display:block}.nav-links{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 22px 22px;background:#0b1118;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:16px}.nav-links.open{display:flex}.nav-cta{display:none}.hero{padding:70px 0 55px}.hero h1{font-size:clamp(3rem,14vw,4.6rem)}.hero-copy{font-size:.94rem}.visual-shell{min-height:320px}.orbital{inset:60px 6px 38px}.visual-foot{font-size:8px;left:15px;right:15px}.signals{grid-template-columns:1fr 1fr}.signal{padding:17px 12px}.signal strong{font-size:.8rem}.signal span{font-size:8px}.content-section{padding:76px 0!important}.cards{grid-template-columns:1fr}.card{min-height:175px}.card h3{margin-top:22px}.stack-layer{grid-template-columns:35px 1fr;gap:10px;padding:16px}.stack-tag{grid-column:2}.demo-aside,.demo-form{padding:24px}.research-grid{grid-template-columns:1fr}.closing-box{padding:30px 24px;display:block}.closing-box .button{margin-top:22px}.footer-inner{align-items:flex-start;flex-direction:column}.footer-links{flex-wrap:wrap}.section-head h2{font-size:2.6rem}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="description" content="AHE — Adaptive Hashing Encryption. A modular cryptographic research project exploring layered protection and post-quantum components.">
+<title>AHE — Adaptive Hashing Encryption</title>
+<style>
+:root{--paper:#f7f7f4;--white:#fff;--ink:#17211f;--muted:#69736f;--line:#dfe4df;--green:#176b58;--green-soft:#e6f0eb;--max:1120px;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}.mono{font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green)}.muted{color:var(--muted)}
+header{position:sticky;top:0;z-index:10;background:rgba(247,247,244,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:17px;font-weight:800;letter-spacing:-.06em}.brand span{color:var(--green)}.navlinks{display:flex;gap:28px;color:#59635e;font-size:13px}.navlinks a:hover,.textlink:hover{color:var(--green)}.navright{display:flex;align-items:center;gap:16px}.github{font-size:12px;font-weight:650;border:1px solid #cbd3cd;border-radius:4px;padding:8px 12px}.menu{display:none;background:none;border:1px solid var(--line);padding:7px 10px;border-radius:4px}
+.hero{padding:104px 0 86px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:90px;align-items:center}.kicker{display:flex;align-items:center;gap:10px}.kicker:before{content:"";width:22px;height:1px;background:var(--green)}h1{font-size:clamp(54px,7.2vw,92px);line-height:.99;letter-spacing:-.085em;font-weight:570;margin:25px 0 24px;max-width:700px}h1 span{color:var(--green)}.intro{font-size:18px;line-height:1.7;color:#58635e;max-width:590px}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--green);background:var(--green);color:white;border-radius:4px;padding:12px 17px;font-size:13px;font-weight:650;cursor:pointer}.btn:hover{background:#0f5948}.btn.secondary{background:transparent;color:var(--ink);border-color:#cbd3cd}.btn.secondary:hover{background:var(--white);border-color:var(--green)}.hero-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:42px;color:#77817c;font:10px var(--mono);text-transform:uppercase;letter-spacing:.07em}.hero-meta span:before{content:"•";color:var(--green);margin-right:8px}
+.figure{background:#e9eee9;border:1px solid #dce3dc;border-radius:3px;min-height:360px;display:grid;place-items:center;position:relative;overflow:hidden}.figure svg{width:100%;max-width:440px}.figure-caption{position:absolute;left:20px;bottom:16px;color:#6d7972;font:10px var(--mono);letter-spacing:.07em;text-transform:uppercase}.figure-top{position:absolute;left:20px;top:18px;color:var(--green);font:10px var(--mono);letter-spacing:.07em}
+.strip{border-block:1px solid var(--line);background:#f0f2ee}.strip-grid{display:grid;grid-template-columns:repeat(4,1fr)}.strip-item{padding:22px 20px;border-right:1px solid var(--line)}.strip-item:last-child{border:0}.strip-item strong{display:block;font-size:13px;font-weight:650}.strip-item small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+section{padding:92px 0}.section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;margin-bottom:42px}.section-head h2,.split h2{font-size:clamp(34px,4vw,52px);line-height:1.06;letter-spacing:-.07em;font-weight:570;margin:13px 0 0}.section-head p{max-width:600px;color:var(--muted);margin:12px 0 0;font-size:15px;line-height:1.8}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.principle{padding:25px 28px 28px 0}.principle+.principle{border-left:1px solid var(--line);padding-left:28px}.number{font:11px var(--mono);color:var(--green)}.principle h3{font-size:18px;letter-spacing:-.04em;margin:30px 0 8px}.principle p{font-size:13px;color:var(--muted);line-height:1.8;margin:0;max-width:310px}
+.arch{background:#eef1ec;border-block:1px solid var(--line)}.split{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}.split-copy p{color:var(--muted);font-size:14px;line-height:1.85;max-width:470px}.layers{border-top:1px solid #cfd8d0}.layer{display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:18px 0;border-bottom:1px solid #cfd8d0}.layer .n{font:11px var(--mono);color:var(--green)}.layer strong{font-size:14px;font-weight:650;display:block}.layer small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.layer em{font:10px var(--mono);font-style:normal;color:#7c8981;text-transform:uppercase}
+.demo{display:grid;grid-template-columns:.75fr 1.25fr;border:1px solid var(--line);background:var(--white)}.demo-info{padding:32px;border-right:1px solid var(--line)}.demo-info h3{font-size:24px;line-height:1.15;letter-spacing:-.055em;margin:16px 0 10px}.demo-info p{color:var(--muted);font-size:13px;line-height:1.8}.status{display:flex;align-items:center;gap:9px;border-top:1px solid var(--line);padding-top:17px;margin-top:25px;color:#63706a;font:10px var(--mono);text-transform:uppercase}.status i{width:7px;height:7px;background:#c18b42;border-radius:50%}.status.ok i{background:#27855f}.demo-form{padding:32px}.field{display:grid;gap:7px;margin-bottom:16px}.field label{font:10px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#68736d}.field textarea,.field input{width:100%;border:1px solid #d8dfd9;background:#fbfcfa;border-radius:3px;padding:12px;color:var(--ink);font-size:13px;outline:none}.field textarea{min-height:100px;resize:vertical}.field textarea:focus,.field input:focus{border-color:var(--green);box-shadow:0 0 0 2px #e3eee8}.form-actions{display:flex;gap:9px;flex-wrap:wrap}.output{white-space:pre-wrap;overflow-wrap:anywhere;min-height:65px;background:#f2f4f0;border:1px solid var(--line);padding:12px;margin-top:15px;font:11px/1.65 var(--mono);color:#59645e}.note{font-size:10px;color:#858f89;line-height:1.6;margin-top:10px}
+.research{display:grid;grid-template-columns:repeat(2,1fr);gap:0 50px;border-top:1px solid var(--line)}.research article{padding:22px 0;border-bottom:1px solid var(--line)}.research h3{font-size:15px;margin:8px 0}.research p{font-size:13px;color:var(--muted);line-height:1.8;margin:0}.caveat{margin-top:25px;padding:16px 18px;border-left:2px solid var(--green);background:#eef2ed;color:#5e6963;font-size:12px;line-height:1.8}
+.end{padding-top:30px}.endbox{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 0}.endbox h2{font-size:30px;letter-spacing:-.06em;font-weight:570;margin:7px 0}.endbox p{font-size:13px;color:var(--muted);margin:0}.footer{padding:24px 0;color:#7d8781;font-size:11px}.footer-inner{display:flex;justify-content:space-between;gap:15px}.footer a:hover{color:var(--green)}
+@media(max-width:800px){.hero-grid,.split{grid-template-columns:1fr;gap:35px}.hero{padding:75px 0 60px}.figure{min-height:300px}.section-head{grid-template-columns:1fr;gap:15px}.demo{grid-template-columns:1fr}.demo-info{border-right:0;border-bottom:1px solid var(--line)}.strip-grid{grid-template-columns:repeat(2,1fr)}.strip-item:nth-child(2){border-right:0}.strip-item:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:600px){.wrap{width:calc(100% - 34px)}.nav{height:62px}.menu{display:block}.navlinks{display:none;position:absolute;top:61px;left:0;right:0;padding:18px;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:16px}.navlinks.open{display:flex}.github{display:none}h1{font-size:clamp(51px,15vw,76px)}.intro{font-size:16px}.hero-meta{gap:12px}.figure{min-height:260px}.strip-item{padding:16px 12px}.strip-item strong{font-size:12px}section{padding:68px 0}.principles{grid-template-columns:1fr}.principle,.principle+.principle{padding:20px 0;border-left:0;border-bottom:1px solid var(--line)}.principle:last-child{border-bottom:0}.principle h3{margin:15px 0 6px}.layer{grid-template-columns:32px 1fr}.layer em{grid-column:2}.demo-info,.demo-form{padding:22px}.research{grid-template-columns:1fr}.endbox,.footer-inner{align-items:flex-start;flex-direction:column}.endbox{padding:25px 0}.endbox .btn{width:100%}}
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="AHE home"><span class="brand-mark">A/</span><span>AHE<small>ADAPTIVE HASHING ENCRYPTION</small></span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">Menu</button>
-      <nav class="nav-links" id="navLinks">
-        <a href="#approach">Approach</a><a href="#architecture">Architecture</a><a href="#demo">Demo</a><a href="#research">Research notes</a>
-      </nav>
-      <a class="nav-cta" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">Explore the SDK <span>↗</span></a>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="wrap hero-grid">
-        <div class="reveal">
-          <div class="eyebrow mono">Cryptographic research / 01</div>
-          <h1>Security should <em>adapt.</em></h1>
-          <p class="hero-copy">Adaptive Hashing Encryption is a modular cryptographic research project exploring how layered protection, key derivation and post-quantum components can work together in a changing threat environment.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#architecture">Explore the architecture <span>↓</span></a>
-            <a class="button ghost" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View source on GitHub <span>↗</span></a>
-          </div>
-          <div class="hero-note"><i class="live-dot"></i> Research prototype · Modular by design · Built to be examined</div>
-        </div>
-        <div class="visual-shell reveal" aria-label="Abstract visualization of cryptographic layers">
-          <div class="visual-label mono">AHE / SYSTEM MAP<span>Illustrative architecture visualization</span></div>
-          <div class="orbital">
-            <svg viewBox="0 0 520 390" role="img" aria-label="Layered orbital network surrounding an AHE core">
-              <ellipse class="orbit" cx="260" cy="190" rx="206" ry="78" transform="rotate(-24 260 190)"/>
-              <ellipse class="orbit dash" cx="260" cy="190" rx="180" ry="125" transform="rotate(34 260 190)"/>
-              <ellipse class="orbit" cx="260" cy="190" rx="125" ry="165" transform="rotate(70 260 190)"/>
-              <ellipse class="orbit dash" cx="260" cy="190" rx="220" ry="145" transform="rotate(-62 260 190)"/>
-              <circle class="core" cx="260" cy="190" r="58"/>
-              <circle cx="260" cy="190" r="43" fill="none" stroke="rgba(139,232,237,.22)"/>
-              <text class="core-text" x="260" y="187" text-anchor="middle">AHE</text>
-              <text class="orbit-caption" x="260" y="205" text-anchor="middle">ADAPTIVE CORE</text>
-              <circle class="node" cx="78" cy="133" r="4"/><circle class="node" cx="438" cy="90" r="4"/>
-              <circle class="node" cx="390" cy="307" r="4"/><circle class="node" cx="139" cy="306" r="4"/>
-              <circle class="node" cx="279" cy="25" r="3"/><circle class="node" cx="476" cy="230" r="3"/>
-              <circle class="node" cx="45" cy="236" r="3"/><circle class="node" cx="315" cy="354" r="3"/>
-              <path d="M78 133L153 155M438 90L362 143M390 307L333 238M139 306L197 237" stroke="rgba(139,232,237,.3)" stroke-dasharray="3 6" fill="none"/>
-              <text class="orbit-caption" x="70" y="117">INPUT</text><text class="orbit-caption" x="442" y="74">KEY MATERIAL</text>
-              <text class="orbit-caption" x="396" y="328">CIPHER</text><text class="orbit-caption" x="107" y="329">INTEGRITY</text>
-            </svg>
-          </div>
-          <div class="visual-foot"><span>01 / Modular layers</span><span>Adaptive by design</span></div>
-        </div>
-      </div>
-      <div class="scroll-line"></div>
-    </section>
-
-    <div class="signal-row">
-      <div class="wrap signals">
-        <div class="signal"><strong>Modular cryptography</strong><span>Composable components</span></div>
-        <div class="signal"><strong>Post-quantum aware</strong><span>Designed for transition</span></div>
-        <div class="signal"><strong>Observable behaviour</strong><span>Testable, measurable outputs</span></div>
-        <div class="signal"><strong>Research prototype</strong><span>Open to scrutiny</span></div>
-      </div>
-    </div>
-
-    <section class="content-section" id="approach">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div><div class="eyebrow mono">01 / The approach</div><h2>Move beyond a single cryptographic primitive.</h2></div>
-          <p>Modern systems rarely fail because one algorithm exists in isolation. Risk accumulates across key handling, implementation, configuration, lifecycle and the systems around the cryptography. AHE explores a layered approach that makes those boundaries explicit and easier to test.</p>
-        </div>
-        <div class="cards">
-          <article class="card reveal"><span class="card-index">01 — COMPOSITION</span><h3>Layered by design</h3><p>Separate key derivation, encryption, post-quantum mechanisms and integrity concerns into components with clear responsibilities.</p></article>
-          <article class="card reveal"><span class="card-index">02 — ADAPTATION</span><h3>Context-aware evolution</h3><p>Explore how configurable parameters and changing operational context can influence a cryptographic workflow without hiding its behaviour.</p></article>
-          <article class="card reveal"><span class="card-index">03 — VERIFICATION</span><h3>Evidence over claims</h3><p>Make performance, entropy, compatibility and failure modes measurable. Security claims should be backed by reproducible tests and independent review.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section architecture" id="architecture">
-      <div class="wrap architecture-grid">
-        <div class="architecture-copy reveal">
-          <div class="eyebrow mono">02 / System architecture</div>
-          <h2>A pipeline you can inspect.</h2>
-          <p>The AHE concept is organised as a sequence of cryptographic responsibilities. Each stage can be evaluated independently, then assessed as part of the complete system.</p>
-          <div class="architecture-list">
-            <div><b>→ 01</b><span>Derive and manage key material</span></div>
-            <div><b>→ 02</b><span>Establish post-quantum key exchange where configured</span></div>
-            <div><b>→ 03</b><span>Protect payloads with authenticated encryption</span></div>
-            <div><b>→ 04</b><span>Validate integrity and expose operational metadata</span></div>
-          </div>
-        </div>
-        <div class="stack reveal">
-          <div class="stack-layer"><span class="stack-num">L1</span><span><strong>Key derivation</strong><small>Controlled derivation and parameter handling</small></span><span class="stack-tag">Foundation</span></div>
-          <div class="stack-layer"><span class="stack-num">L2</span><span><strong>Post-quantum interface</strong><small>Pluggable key encapsulation / signature components</small></span><span class="stack-tag">PQC</span></div>
-          <div class="stack-layer"><span class="stack-num">L3</span><span><strong>Authenticated encryption</strong><small>Confidentiality with integrity protection</small></span><span class="stack-tag">Payload</span></div>
-          <div class="stack-layer"><span class="stack-num">L4</span><span><strong>Verification & telemetry</strong><small>Validation, errors and measurable outputs</small></span><span class="stack-tag">Evidence</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section" id="demo">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div><div class="eyebrow mono">03 / Interactive interface</div><h2>Test the implementation.</h2></div>
-          <p>The interface below connects to the configured AHE API. It does not simulate encryption locally. If the research server is offline, the page will report that clearly rather than presenting a mock result as cryptographic output.</p>
-        </div>
-        <div class="demo-panel reveal">
-          <aside class="demo-aside">
-            <div class="eyebrow mono">AHE / Sandbox</div>
-            <h3>Send a test payload through the API.</h3>
-            <p>Use non-sensitive sample text only. The service's availability and returned metadata depend on the configured backend.</p>
-            <div class="api-status" id="apiStatus"><i></i><span id="apiStatusText">Checking API availability…</span></div>
-          </aside>
-          <div class="demo-form">
-            <div class="field"><label for="message">Message to encrypt</label><textarea id="message" placeholder="Enter a short, non-sensitive test message…"></textarea></div>
-            <div class="field"><label for="password">Test password</label><input id="password" type="password" autocomplete="new-password" placeholder="Enter a test password"></div>
-            <div class="demo-actions"><button class="button primary" id="encryptBtn" type="button">Encrypt payload ↗</button><button class="button ghost" id="decryptBtn" type="button">Decrypt last payload</button></div>
-            <div class="demo-output" id="demoOutput" role="status" aria-live="polite">Awaiting input. API responses will appear here.</div>
-            <p class="demo-disclaimer">Prototype interface. Do not submit personal, confidential or production data. This research implementation has not been represented as independently audited or production-certified.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section" id="research">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div><div class="eyebrow mono">04 / Research principles</div><h2>Make the hard questions visible.</h2></div>
-          <p>A credible cryptographic system must be understandable to reviewers. These are the questions that guide the work and should shape its future validation.</p>
-        </div>
-        <div class="research-grid">
-          <article class="research-item reveal"><span class="mono">01 / SECURITY MODEL</span><h3>What is the threat model?</h3><p>Define attacker capabilities, protected assets, trust boundaries, key lifecycle and the security properties each component is expected to provide.</p></article>
-          <article class="research-item reveal"><span class="mono">02 / CRYPTOGRAPHIC HYGIENE</span><h3>Are standard primitives used correctly?</h3><p>Prefer reviewed algorithms and established libraries. Novel orchestration does not replace sound cryptographic design or implementation review.</p></article>
-          <article class="research-item reveal"><span class="mono">03 / MEASUREMENT</span><h3>Can the results be reproduced?</h3><p>Benchmark latency, throughput, memory use, failure behaviour and randomness assumptions under documented test conditions.</p></article>
-          <article class="research-item reveal"><span class="mono">04 / ASSURANCE</span><h3>What still needs independent review?</h3><p>Document limitations, test vectors, interoperability, side-channel considerations and the scope of any future security assessment.</p></article>
-        </div>
-        <div class="honesty reveal"><b>i</b><p><strong>Research status:</strong> AHE is presented here as an experimental cryptographic project, not as a proven replacement for established standards. “Quantum-resistant” is not a blanket guarantee: security depends on the selected algorithms, implementation, configuration and threat model. Independent cryptographic review is required before production use.</p></div>
-      </div>
-    </section>
-
-    <section class="content-section closing">
-      <div class="wrap">
-        <div class="closing-box reveal">
-          <div><div class="eyebrow mono">Continue the investigation</div><h2>Read the code. Challenge the design.</h2><p>Explore the SDK, inspect the implementation and evaluate the project against a clearly defined threat model.</p></div>
-          <a class="button primary" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">Open AHE on GitHub ↗</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>© <span id="year"></span> AHE Research · Adaptive Hashing Encryption</div>
-      <div class="footer-links"><a href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">GitHub ↗</a><a href="#top">Back to top ↑</a></div>
-    </div>
-  </footer>
-
-  <script>
-    (function(){
-      const API_URL = "https://lectures-aaa-dsl-suggestions.trycloudflare.com";
-      const status = document.getElementById("apiStatus");
-      const statusText = document.getElementById("apiStatusText");
-      const output = document.getElementById("demoOutput");
-      const message = document.getElementById("message");
-      const password = document.getElementById("password");
-      let lastPassword = "";
-
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      const menuToggle = document.getElementById("menuToggle");
-      const navLinks = document.getElementById("navLinks");
-      menuToggle.addEventListener("click", function(){
-        const open = navLinks.classList.toggle("open");
-        menuToggle.setAttribute("aria-expanded", String(open));
-        menuToggle.textContent = open ? "Close" : "Menu";
-      });
-      navLinks.querySelectorAll("a").forEach(function(link){
-        link.addEventListener("click", function(){
-          navLinks.classList.remove("open");
-          menuToggle.setAttribute("aria-expanded","false");
-          menuToggle.textContent = "Menu";
-        });
-      });
-
-      const observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target);}
-        });
-      },{threshold:.12});
-      document.querySelectorAll(".reveal").forEach(function(el){observer.observe(el);});
-
-      async function checkApi(){
-        try{
-          const response = await fetch(API_URL + "/health",{method:"GET"});
-          if(!response.ok) throw new Error("HTTP " + response.status);
-          const data = await response.json();
-          if(data.status !== "healthy") throw new Error("Service not healthy");
-          status.classList.add("ok");
-          statusText.textContent = "API online · health check passed";
-        }catch(error){
-          status.classList.remove("ok");
-          statusText.textContent = "API unavailable · demo server not responding";
-        }
-      }
-
-      async function request(path,payload){
-        const response = await fetch(API_URL + path,{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify(payload)
-        });
-        let data={};
-        try{data=await response.json();}catch(e){}
-        if(!response.ok) throw new Error(data.detail || data.error || ("HTTP " + response.status));
-        return data;
-      }
-
-      document.getElementById("encryptBtn").addEventListener("click",async function(){
-        const text = message.value.trim();
-        const pass = password.value;
-        if(!text || !pass){output.textContent="Enter both a message and a test password.";return;}
-        output.textContent="Sending encryption request…";
-        this.disabled=true;
-        try{
-          const data=await request("/encrypt",{message:text,password:pass});
-          lastPassword=pass;
-          output.textContent=JSON.stringify(data,null,2);
-          status.classList.add("ok");
-          statusText.textContent="API responded · encryption request completed";
-        }catch(error){
-          output.textContent="Encryption request failed: " + error.message;
-        }finally{this.disabled=false;}
-      });
-
-      document.getElementById("decryptBtn").addEventListener("click",async function(){
-        const pass=password.value || lastPassword;
-        if(!pass){output.textContent="Enter the password used for the previous encryption request.";return;}
-        output.textContent="Sending decryption request…";
-        this.disabled=true;
-        try{
-          const data=await request("/decrypt",{password:pass});
-          output.textContent=JSON.stringify(data,null,2);
-        }catch(error){
-          output.textContent="Decryption request failed: " + error.message;
-        }finally{this.disabled=false;}
-      });
-
-      checkApi();
-    })();
-  </script>
-</body>
-</html>
+<header><div class="wrap nav">
+<a class="brand" href="#top">AHE<span> /</span></a>
+<nav class="navlinks" id="navlinks"><a href="#approach">Approach</a><a href="#architecture">Architecture</a><a href="#demo">Try the API</a><a href="#research">Research</a></nav>
+<div class="navright"><a class="github" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View SDK ↗</a><button class="menu" id="menu" aria-expanded="false">Menu</button></div>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap hero-grid">
+<div>
+<div class="mono kicker">Adaptive Hashing Encryption · Research project</div>
+<h1>Cryptography,<br><span>rethought in layers.</span></h1>
+<p class="intro">AHE explores a modular approach to cryptographic protection, bringing key derivation, authenticated encryption and post-quantum components into one inspectable workflow.</p>
+<div class="actions"><a class="btn" href="#architecture">Explore the design ↓</a><a class="btn secondary" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">Read the code ↗</a></div>
+<div class="hero-meta"><span>Modular components</span><span>Open research</span><span>Built to be tested</span></div>
+</div>
+<div class="figure" aria-label="Abstract illustration of layered cryptographic components">
+<div class="figure-top">AHE / Conceptual model</div>
+<svg viewBox="0 0 440 320" role="img" aria-label="Four connected layers surrounding a central cryptographic core">
+<g fill="none" stroke="#a9b9ad" stroke-width="1.2"><path d="M220 42 365 125 220 208 75 125Z"/><path d="M220 80 330 143 220 207 110 143Z"/><path d="M220 118 295 161 220 204 145 161Z"/><path d="M75 125v67l145 84 145-84v-67M110 143v45l110 64 110-64v-45M145 161v24l75 43 75-43v-24"/></g>
+<path d="M220 42 365 125 220 208 75 125Z" fill="#e1ebe2" stroke="#729b83"/>
+<path d="M220 80 330 143 220 207 110 143Z" fill="#d4e4d8" stroke="#729b83"/>
+<path d="M220 118 295 161 220 204 145 161Z" fill="#c2d9ca" stroke="#5c9274"/>
+<path d="M220 146 260 169 220 192 180 169Z" fill="#176b58"/>
+<g fill="#fff" font-family="ui-monospace,monospace" font-size="10" text-anchor="middle"><text x="220" y="173">AHE</text></g>
+<g fill="#416e58" font-family="ui-monospace,monospace" font-size="9"><text x="22" y="120">INPUT</text><text x="365" y="117">KEYS</text><text x="25" y="220">CIPHER</text><text x="340" y="230">VERIFY</text></g>
+<g fill="#176b58"><circle cx="220" cy="42" r="3"/><circle cx="365" cy="125" r="3"/><circle cx="220" cy="208" r="3"/><circle cx="75" cy="125" r="3"/></g>
+</svg>
+<div class="figure-caption">Conceptual system illustration · Not a security proof</div>
+</div>
+</div></section>
+<div class="strip"><div class="wrap strip-grid">
+<div class="strip-item"><strong>Layered workflow</strong><small>Distinct cryptographic responsibilities</small></div><div class="strip-item"><strong>Post-quantum components</strong><small>Composable algorithm interfaces</small></div><div class="strip-item"><strong>Authenticated encryption</strong><small>Confidentiality and integrity</small></div><div class="strip-item"><strong>Reproducible evaluation</strong><small>Test the implementation, not the claims</small></div>
+</div></div>
+<section id="approach"><div class="wrap">
+<div class="section-head"><div><div class="mono">01 / Approach</div><h2>One system.<br>Clear boundaries.</h2></div><p>AHE is an exploration of how cryptographic components can be coordinated without obscuring their individual roles. The focus is composability, transparent behaviour and measurable results—not inventing a replacement for established cryptography.</p></div>
+<div class="principles">
+<article class="principle"><div class="number">01 / COMPOSE</div><h3>Separate the layers</h3><p>Keep derivation, key establishment, payload encryption and validation as distinct responsibilities.</p></article>
+<article class="principle"><div class="number">02 / ADAPT</div><h3>Make configuration explicit</h3><p>Expose parameters and algorithm choices so system behaviour can be inspected and tested.</p></article>
+<article class="principle"><div class="number">03 / VERIFY</div><h3>Measure what matters</h3><p>Evaluate correctness, performance, compatibility and failure modes under documented conditions.</p></article>
+</div>
+</div></section>
+<section class="arch" id="architecture"><div class="wrap split">
+<div class="split-copy"><div class="mono">02 / Architecture</div><h2>A simple view of the pipeline.</h2><p>The implementation can be understood as a sequence of stages. Each one should have a defined input, output, failure mode and security responsibility.</p></div>
+<div class="layers">
+<div class="layer"><span class="n">01</span><span><strong>Key derivation</strong><small>Derive key material from configured inputs</small></span><em>Foundation</em></div>
+<div class="layer"><span class="n">02</span><span><strong>Post-quantum interface</strong><small>Optional key encapsulation / signature components</small></span><em>PQC</em></div>
+<div class="layer"><span class="n">03</span><span><strong>Authenticated encryption</strong><small>Protect payload confidentiality and integrity</small></span><em>Payload</em></div>
+<div class="layer"><span class="n">04</span><span><strong>Validation</strong><small>Verify outputs and report operational errors</small></span><em>Integrity</em></div>
+</div>
+</div></section>
+<section id="demo"><div class="wrap">
+<div class="section-head"><div><div class="mono">03 / Live interface</div><h2>Try the API.</h2></div><p>This form sends requests to the configured AHE service. It does not simulate cryptography in the browser. Use sample text only; the interface will report when the remote service is unavailable.</p></div>
+<div class="demo">
+<aside class="demo-info"><div class="mono">AHE / Sandbox</div><h3>A small, direct test.</h3><p>Submit a short message and password to the API. The result shown below is the response returned by the configured backend.</p><div class="status" id="apiStatus"><i></i><span id="apiStatusText">Checking service…</span></div></aside>
+<div class="demo-form">
+<div class="field"><label for="message">Message</label><textarea id="message" placeholder="A short, non-sensitive test message"></textarea></div>
+<div class="field"><label for="password">Test password</label><input id="password" type="password" autocomplete="new-password" placeholder="Enter a test password"></div>
+<div class="form-actions"><button class="btn" id="encryptBtn" type="button">Encrypt ↗</button><button class="btn secondary" id="decryptBtn" type="button">Decrypt last result</button></div>
+<div class="output" id="output" role="status" aria-live="polite">Waiting for input.</div>
+<p class="note">Do not submit personal, confidential or production data. This research prototype has not been independently audited or certified for production use.</p>
+</div>
+</div>
+</div></section>
+<section id="research"><div class="wrap">
+<div class="section-head"><div><div class="mono">04 / Evaluation</div><h2>Research starts with hard questions.</h2></div><p>A credible cryptographic project should make its assumptions and limitations visible. These are essential areas for ongoing implementation review.</p></div>
+<div class="research">
+<article><div class="mono">01 / Threat model</div><h3>What are we protecting against?</h3><p>Define attacker capabilities, protected assets, trust boundaries and the security properties expected from each stage.</p></article>
+<article><div class="mono">02 / Primitive selection</div><h3>Are established algorithms implemented correctly?</h3><p>Use reviewed algorithms and maintained libraries. Layering alone does not create stronger cryptography.</p></article>
+<article><div class="mono">03 / Measurement</div><h3>Can results be reproduced?</h3><p>Document test vectors, performance, resource use, interoperability and failure behaviour.</p></article>
+<article><div class="mono">04 / Independent assurance</div><h3>What still needs scrutiny?</h3><p>Review key lifecycle, side-channel exposure, parameter choices, implementation details and operational controls.</p></article>
+</div>
+<div class="caveat"><strong>Research status.</strong> AHE is an experimental project, not a proven replacement for established standards. Post-quantum security depends on algorithm selection, implementation and configuration. Independent cryptographic review is required before production use.</div>
+</div></section>
+<section class="end"><div class="wrap endbox"><div><div class="mono">Continue exploring</div><h2>Inspect the implementation.</h2><p>Read the SDK, examine the design and challenge the assumptions.</p></div><a class="btn" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">Open AHE SDK ↗</a></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>© <span id="year"></span> AHE · Adaptive Hashing Encryption</span><span><a href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">GitHub ↗</a>　·　<a href="#top">Back to top ↑</a></span></div></footer>
+<script>
+(function(){
+const API="https://lectures-aaa-dsl-suggestions.trycloudflare.com";
+const $=id=>document.getElementById(id);
+let lastPassword="";
+$("year").textContent=new Date().getFullYear();
+$("menu").addEventListener("click",()=>{const open=$("navlinks").classList.toggle("open");$("menu").setAttribute("aria-expanded",String(open));});
+$("navlinks").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>$("navlinks").classList.remove("open")));
+async function health(){try{const r=await fetch(API+"/health");if(!r.ok)throw Error("HTTP "+r.status);const d=await r.json();if(d.status!=="healthy")throw Error("Service not healthy");$("apiStatus").classList.add("ok");$("apiStatusText").textContent="API online";}catch(e){$("apiStatus").classList.remove("ok");$("apiStatusText").textContent="API unavailable";}}
+async function post(path,data){const r=await fetch(API+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw Error(d.detail||d.error||"HTTP "+r.status);return d;}
+$("encryptBtn").addEventListener("click",async function(){const message=$("message").value.trim(),password=$("password").value;if(!message||!password){$("output").textContent="Enter both a message and test password.";return;}this.disabled=true;$("output").textContent="Requesting encryption…";try{const d=await post("/encrypt",{message,password});lastPassword=password;$("output").textContent=JSON.stringify(d,null,2);}catch(e){$("output").textContent="Encryption failed: "+e.message;}finally{this.disabled=false;}});
+$("decryptBtn").addEventListener("click",async function(){const password=$("password").value||lastPassword;if(!password){$("output").textContent="Enter the password used for encryption.";return;}this.disabled=true;$("output").textContent="Requesting decryption…";try{const d=await post("/decrypt",{password});$("output").textContent=JSON.stringify(d,null,2);}catch(e){$("output").textContent="Decryption failed: "+e.message;}finally{this.disabled=false;}});
+health();
+})();
+</script>
+</body></html>
