@@ -275,16 +275,94 @@ footer{background:var(--surface);border-color:var(--edge)}
 :root.light #workflowCanvas g[fill="#8ea6b0"]{fill:#526c78}
 :root.light #workflowCanvas g[stroke="#d7b77b"]{stroke:#956a24}
 :root.light .workflow-visual:before{opacity:.65}
+<style id="ahe-cinematic-hero">
+/* Cinematic AHE hero: imagery is the focal point, typography is the counterweight. */
+.hero-cinematic{min-height:100svh;padding:116px 0 86px;background:#05080d;isolation:isolate}
+.hero-cinematic .hero-photo{background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2200&q=85');background-position:center;background-size:cover;opacity:.2;filter:saturate(.82)}
+.hero-cinematic:before{background:linear-gradient(90deg,rgba(4,7,12,.98) 0%,rgba(4,7,12,.9) 38%,rgba(4,7,12,.48) 72%,rgba(4,7,12,.35) 100%),linear-gradient(0deg,#05080d 0%,transparent 28%,rgba(4,7,12,.35) 100%)}
+.hero-cinematic:after{opacity:.18;background-size:72px 72px;mask-image:linear-gradient(90deg,transparent 10%,#000 72%,transparent)}
+.hero-cinematic .hero-inner{width:min(1500px,calc(100% - 9vw));grid-template-columns:minmax(360px,.82fr) minmax(520px,1.18fr);gap:2vw;position:relative;z-index:2}
+.hero-cinematic .hero-copy{position:relative;z-index:5;max-width:690px;padding:30px 0}
+.hero-cinematic .eyebrow{font-size:9px;letter-spacing:.2em}.hero-cinematic .eyebrow-slash{color:var(--gold);padding:0 4px}
+.hero-cinematic h1{font-size:clamp(58px,7.4vw,108px);line-height:.88;letter-spacing:-.09em;margin:28px 0}
+.hero-cinematic .hero-copy>p{max-width:490px;font-size:15px;color:#bdc9d1}
+.hero-cinematic .hero-meta{gap:17px;margin-top:38px;font-size:8px}
+.hero-stage{position:relative;min-height:min(690px,76vh);height:690px;max-height:78vh;isolation:isolate;perspective:1200px;transform-style:preserve-3d}
+.hero-stage:before{content:"";position:absolute;inset:8% 2% 7% 0;border-radius:50%;background:radial-gradient(ellipse,rgba(30,128,155,.2),rgba(13,45,67,.08) 40%,transparent 70%);filter:blur(20px);z-index:-2}
+.stage-image{position:absolute;overflow:hidden;border:1px solid rgba(147,211,226,.3);background:#0b1824;box-shadow:0 35px 90px rgba(0,0,0,.48),0 0 45px rgba(43,167,190,.08);transform-style:preserve-3d}
+.stage-image img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.78) contrast(1.08);transition:transform 1.2s cubic-bezier(.16,1,.3,1),filter .6s}
+.stage-image:hover img{transform:scale(1.07);filter:saturate(1.05) contrast(1.08)}
+.stage-image-earth{width:67%;height:74%;right:3%;top:9%;border-radius:48% 48% 3px 3px;clip-path:polygon(9% 0,100% 0,100% 100%,0 100%,0 14%);opacity:.76;transform:rotateY(-9deg) rotateZ(1deg)}
+.stage-image-earth:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,10,18,.03),rgba(4,10,18,.42)),linear-gradient(90deg,rgba(4,10,18,.18),transparent 60%)}
+.stage-image-circuit{width:43%;height:38%;left:1%;top:17%;z-index:3;transform:rotateY(12deg) rotateZ(-5deg);border-radius:3px}
+.stage-image-circuit:after,.stage-image-server:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,18,28,.08),rgba(6,14,23,.5))}
+.stage-image-server{width:48%;height:36%;right:0;bottom:8%;z-index:4;transform:rotateY(-11deg) rotateZ(4deg);border-radius:3px}
+.stage-orbit{position:absolute;z-index:5;left:24%;top:13%;width:68%;height:70%;border:1px solid rgba(104,218,232,.24);border-radius:50%;pointer-events:none;transform:rotate(-27deg) rotateY(22deg)}
+.stage-orbit-one:after{content:"";position:absolute;width:8px;height:8px;left:12%;top:21%;border-radius:50%;background:#9af5f5;box-shadow:0 0 22px 7px rgba(80,220,232,.55)}
+.stage-orbit-two{left:18%;top:21%;width:78%;height:59%;border-color:rgba(202,174,119,.32);transform:rotate(34deg) rotateY(-25deg)}
+.stage-constellation{position:absolute;z-index:6;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 10px rgba(91,215,229,.15));animation:constellationDrift 18s ease-in-out infinite alternate}
+.stage-core{position:absolute;z-index:7;left:48%;top:48%;width:210px;height:210px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transform:translate(-50%,-50%) rotateY(-8deg);border:1px solid rgba(133,229,237,.38);border-radius:50%;background:radial-gradient(circle at 50% 42%,rgba(20,54,70,.86),rgba(4,11,19,.78) 70%);box-shadow:0 0 0 12px rgba(79,190,205,.035),0 0 65px rgba(52,190,207,.2),inset 0 0 38px rgba(76,194,213,.12);backdrop-filter:blur(12px)}
+.stage-core:before,.stage-core:after{content:"";position:absolute;inset:-13px;border:1px solid rgba(130,219,230,.23);border-radius:50%;animation:corePulse 5s ease-in-out infinite}
+.stage-core:after{inset:-25px;border-color:rgba(210,179,120,.18);animation-delay:1.5s}
+.core-overline,.core-index{font:8px var(--mono);letter-spacing:.17em;color:#9bcbd2}
+.stage-core strong{font:500 18px/1.03 var(--disp);letter-spacing:.03em;color:#e7f5f6;margin:13px 0}
+.stage-core strong em{font-style:normal;color:#82dce5}
+.core-index{font-size:7px;color:#9babb4}
+.stage-label{position:absolute;z-index:8;display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid rgba(146,204,218,.24);background:rgba(4,12,21,.7);backdrop-filter:blur(12px);font:8px/1.55 var(--mono);letter-spacing:.13em;color:#d0e2e9;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.stage-label i{width:6px;height:6px;border-radius:50%;background:#8ce8ef;box-shadow:0 0 12px #8ce8ef}
+.stage-label-top{left:10%;top:5%}.stage-label-bottom{right:1%;bottom:2%}.stage-label-bottom i{background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.stage-caption{position:absolute;z-index:9;left:3%;right:3%;bottom:0;display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(145,190,204,.22);font:8px var(--mono);letter-spacing:.16em;color:#91a7b2}
+.hero-bottomline{position:absolute;left:4.5%;right:4.5%;bottom:24px;display:flex;justify-content:space-between;z-index:5;font:8px var(--mono);letter-spacing:.18em;color:#728995}
+.hero-bottomline b{color:var(--cyan);font-size:13px;padding-left:8px}
+@keyframes constellationDrift{from{transform:translate3d(0,0,0) rotate(-1deg)}to{transform:translate3d(0,-9px,0) rotate(1deg)}}
+@keyframes corePulse{0%,100%{transform:scale(.98);opacity:.35}50%{transform:scale(1.04);opacity:.9}}
+@media(max-width:1050px){.hero-cinematic .hero-inner{grid-template-columns:1fr;gap:10px}.hero-cinematic .hero-copy{max-width:760px;padding-bottom:0}.hero-stage{height:570px;max-height:none;min-height:530px;width:min(850px,100%);margin:-5px auto 0}.hero-cinematic{padding-bottom:100px}}
+@media(max-width:640px){.hero-cinematic{padding:120px 0 80px}.hero-cinematic .hero-inner{width:calc(100% - 36px)}.hero-cinematic h1{font-size:clamp(49px,13.5vw,76px)}.hero-cinematic .hero-copy>p{font-size:13px}.hero-cinematic .hero-meta{font-size:7px;gap:10px}.hero-stage{height:390px;min-height:390px;margin-top:8px}.stage-image-earth{width:78%;height:69%;right:0;top:9%}.stage-image-circuit{width:47%;height:35%;left:-1%;top:20%}.stage-image-server{width:53%;height:32%;right:-1%;bottom:9%}.stage-core{width:145px;height:145px;left:49%}.stage-core strong{font-size:13px}.core-overline{font-size:6px}.core-index{font-size:5px}.stage-label{font-size:6px;padding:7px 8px}.stage-label-top{left:0;top:2%}.stage-label-bottom{right:0;bottom:1%}.stage-caption{font-size:6px}.hero-bottomline{left:18px;right:18px;bottom:18px;font-size:6px;letter-spacing:.1em}.hero-bottomline span:nth-child(3){display:none}}
+@media(prefers-reduced-motion:reduce){.stage-constellation,.stage-core:before,.stage-core:after{animation:none!important}.stage-image img{transition:none}}
+</style>
 </head>
 <body>
 <button id="themeBtn" type="button" aria-label="Switch to light mode" title="Switch to light mode">☼</button><span class="theme-tip" aria-hidden="true">APPEARANCE / LIGHT–DARK</span><div class="gridbg"></div><div class="grain"></div><div id="progress"></div>
 <header class="topbar"><a class="brand" href="#top"><i></i>AHE <span>// RESEARCH_OS</span></a><nav class="nav" id="nav"><a href="#experience">System</a><a href="#field-notes">Field notes</a><a href="#archive">Archive</a><a href="#architecture">Architecture</a><a href="#lab">API lab</a><a href="#research">Evaluation</a><a class="repo" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">SDK ↗</a></nav><button id="menu" aria-label="Open navigation" aria-expanded="false">☰</button></header>
 <aside id="rail" aria-label="Section navigation"><button class="rl active" data-target="top">01<span>Overview</span></button><button class="rl" data-target="experience">02<span>System</span></button><button class="rl" data-target="field-notes">03<span>Field notes</span></button><button class="rl" data-target="archive">04<span>Archive</span></button><button class="rl" data-target="architecture">05<span>Architecture</span></button><button class="rl" data-target="lab">06<span>API lab</span></button><button class="rl" data-target="research">07<span>Evaluation</span></button></aside>
 <main>
-<section class="hero" id="top"><div class="hero-photo"></div><div class="wrap hero-inner">
-<div class="hero-copy"><div class="eyebrow">Adaptive Hashing Encryption / Research initiative</div><h1>MAKE<br>CRYPTOGRAPHY<br><span class="outline">VISIBLE.</span></h1><p>AHE is an experimental encryption research project. It brings key derivation, post-quantum components and authenticated encryption into one inspectable workflow—so each stage can be tested, measured and reviewed.</p><div class="hero-actions"><a class="btn primary" href="#experience">Explore the system <b>↗</b></a><a class="btn ghost" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View SDK <b>↗</b></a></div><div class="hero-meta"><span>Modular cryptographic research</span><span>PQC-aware workflow</span><span>Experimental implementation</span></div></div>
-<div class="system-window" aria-label="AHE system interface preview"><div class="window-top"><div class="lights"><i></i><i></i><i></i></div><span>AHE / PIPELINE MONITOR</span><span>BUILD 0.4</span></div><div class="window-body"><div class="window-label"><span>PAYLOAD TRANSFORMATION</span><span>FIG 01 — LIVE MODEL</span></div><div class="signal"><svg viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="wave" x1="0" x2="1"><stop stop-color="#4ec9d4" stop-opacity="0"/><stop offset=".45" stop-color="#4ec9d4"/><stop offset="1" stop-color="#c8a45c" stop-opacity=".7"/></linearGradient></defs><path d="M0 66 L35 66 48 62 58 73 69 39 82 89 94 57 107 66 130 66 144 60 155 71 167 25 180 96 192 62 210 66 235 66 250 56 261 77 273 48 285 83 298 65 325 66 342 66 355 57 368 73 380 33 393 91 405 61 420 66 448 66 462 58 474 72 486 42 498 85 511 65 535 66 600 66" fill="none" stroke="url(#wave)" stroke-width="2"/><path d="M0 66H600" stroke="#4ec9d4" stroke-opacity=".14" stroke-dasharray="3 8"/></svg><div class="scan"></div></div><div class="packet"><div class="packet-step current"><b>01 / INPUT</b><small>Payload<br>ingestion</small></div><div class="packet-step"><b>02 / KEY</b><small>Derive +<br>encapsulate</small></div><div class="packet-step"><b>03 / SEAL</b><small>AES-GCM<br>protection</small></div><div class="packet-step"><b>04 / VERIFY</b><small>Integrity<br>check</small></div></div><div class="window-foot"><span class="live-dot">MODEL READY</span><span>INSPECTABLE BY DESIGN</span></div></div></div>
-</div></section>
+<section class="hero hero-cinematic" id="top">
+  <div class="hero-photo" aria-hidden="true"></div>
+  <div class="hero-atmosphere" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow">Adaptive Hashing Encryption <span class="eyebrow-slash">/</span> Cryptographic research</div>
+      <h1>MAKE<br>CRYPTOGRAPHY<br><span class="outline">VISIBLE.</span></h1>
+      <p>AHE is an experimental encryption research project exploring an inspectable workflow across key derivation, post-quantum components and authenticated encryption.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#experience">Explore the system <b>↗</b></a>
+        <a class="btn ghost" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View SDK <b>↗</b></a>
+      </div>
+      <div class="hero-meta"><span>Modular cryptographic research</span><span>PQC-aware workflow</span><span>Experimental implementation</span></div>
+    </div>
+    <div class="hero-stage" aria-label="Layered visual composition showing cryptographic infrastructure and post-quantum research">
+      <div class="stage-image stage-image-earth"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Earth at night seen from orbit"></div>
+      <div class="stage-image stage-image-circuit"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Close-up of a complex electronic circuit board"></div>
+      <div class="stage-image stage-image-server"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Illuminated data centre server racks"></div>
+      <div class="stage-orbit stage-orbit-one" aria-hidden="true"></div><div class="stage-orbit stage-orbit-two" aria-hidden="true"></div>
+      <svg class="stage-constellation" viewBox="0 0 720 620" fill="none" aria-hidden="true">
+        <defs><linearGradient id="aheTrace" x1="90" y1="120" x2="620" y2="500" gradientUnits="userSpaceOnUse"><stop stop-color="#7DE9F2"/><stop offset=".55" stop-color="#6C9FE8"/><stop offset="1" stop-color="#D7B77B"/></linearGradient><filter id="aheGlow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path d="M90 180 C190 55 330 80 360 250 S530 490 650 360" stroke="url(#aheTrace)" stroke-width="1.4" stroke-dasharray="3 9" opacity=".8"/>
+        <path d="M110 470 C230 560 300 390 360 250 S520 60 640 145" stroke="url(#aheTrace)" stroke-width="1.2" stroke-dasharray="2 8" opacity=".65"/>
+        <circle cx="360" cy="250" r="112" stroke="#77DCE8" stroke-opacity=".5"/><circle cx="360" cy="250" r="143" stroke="#77DCE8" stroke-opacity=".18" stroke-dasharray="2 9"/>
+        <circle cx="360" cy="250" r="74" stroke="#D5B77A" stroke-opacity=".7" stroke-width="1.2"/>
+        <circle cx="360" cy="250" r="11" fill="#8DEAF0" filter="url(#aheGlow)"/><circle cx="360" cy="250" r="30" stroke="#8DEAF0" stroke-opacity=".7"/>
+        <g fill="#A8F4F5" filter="url(#aheGlow)"><circle cx="90" cy="180" r="4"/><circle cx="650" cy="360" r="4"/><circle cx="110" cy="470" r="3"/><circle cx="640" cy="145" r="3"/></g>
+        <g stroke="#8DEAF0" stroke-opacity=".55"><path d="M360 95V126M360 374V405M205 250H236M484 250H515"/></g>
+      </svg>
+      <div class="stage-core"><span class="core-overline">AHE / CORE MODEL</span><strong>ADAPTIVE<br>HASHING<br><em>ENCRYPTION</em></strong><span class="core-index">FIG. 01 — RESEARCH SYSTEM</span></div>
+      <div class="stage-label stage-label-top"><i></i><span>POST-QUANTUM<br>KEY MATERIAL</span></div>
+      <div class="stage-label stage-label-bottom"><i></i><span>AUTHENTICATED<br>DATA PATH</span></div>
+      <div class="stage-caption"><span>01 / SYSTEM LANDSCAPE</span><span>CONCEPTUAL VISUALISATION</span></div>
+    </div>
+  </div>
+  <div class="hero-bottomline"><span>RESEARCH / 001</span><span>INSPECT THE WORKFLOW <b>↓</b></span><span>PRETORIA · SOUTH AFRICA</span></div>
+</section>
 <section class="section" id="experience">
  <div class="wrap">
   <div class="section-intro reveal"><div><div class="kicker">01 / HOW THE DATA IS PROTECTED</div><h2 class="display">From input<br>to verification.</h2></div><p class="lede">Follow the path a message takes through the proposed AHE workflow. Each stage has a defined job, and each can be examined independently. The diagram is conceptual; implementation status is stated separately.</p></div>
