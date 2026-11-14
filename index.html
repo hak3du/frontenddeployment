@@ -182,20 +182,101 @@ body{background:#070a0e}
 }
 @media(prefers-reduced-motion:reduce){.manifesto-image img,.archive-frame img{transition:none}}
 </style>
+<script>
+/* Restore AHE appearance before first paint. */
+try{
+  const saved=localStorage.getItem("ahe-theme");
+  const light=saved?saved==="light":window.matchMedia("(prefers-color-scheme: light)").matches;
+  if(light)document.documentElement.classList.add("light");
+}catch(e){}
+</script>
+
+<style id="ahe-theme-and-message">
+:root{
+ --page:#070b10;--surface:#0d151e;--surface2:#111e29;--ink:#e8f0f3;--sub:#a2b1ba;
+ --edge:rgba(131,220,228,.2);--edge-strong:rgba(131,220,228,.42);
+ --accent:#63d5df;--accent2:#6daee2;--signal:#e0bb79;--copy:#c0ccd2;
+ --navbg:rgba(7,11,16,.9);
+}
+:root.light{
+ --page:#f1f4f6;--surface:#ffffff;--surface2:#e7eef2;--ink:#14232c;--sub:#4f626d;
+ --edge:rgba(22,91,111,.2);--edge-strong:rgba(16,116,137,.42);
+ --accent:#087f91;--accent2:#286eaa;--signal:#956a24;--copy:#334b57;
+ --navbg:rgba(245,248,249,.94);
+ color-scheme:light;
+}
+:root:not(.light){color-scheme:dark}
+html{background:var(--page)}
+body{background:var(--page);color:var(--ink);transition:background .35s,color .35s}
+#themeBtn{position:fixed;left:22px;bottom:22px;z-index:600;width:46px;height:46px;border:1px solid var(--edge-strong);border-radius:50%;background:var(--surface);color:var(--accent);display:grid;place-items:center;font:20px var(--body);box-shadow:0 8px 28px rgba(0,0,0,.18);transition:transform .25s,background .3s,color .3s}
+#themeBtn:hover{transform:translateY(-3px);border-color:var(--accent)}
+#themeBtn:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.theme-tip{position:fixed;left:78px;bottom:34px;z-index:600;color:var(--sub);font:9px var(--mono);letter-spacing:.12em;pointer-events:none}
+.topbar{background:linear-gradient(180deg,rgba(5,6,10,.96),rgba(5,6,10,.6),transparent)}
+.nav a{transition:color .25s}
+.section{background:var(--page)!important;color:var(--ink)}
+#experience,#field-notes,#archive,#architecture,#lab,#research{background:var(--page)!important}
+.workflow-topline,.stack-map,.stack-row,.manifesto-quote,.note-meta,.evidence-grid,.research-status{border-color:var(--edge)!important}
+.workflow-topline{color:var(--sub)}
+.workflow-topline span:last-child,.kicker,.workflow-readout .kicker,.workflow-tabs .stage.active strong,.workflow-tabs .stage.active em{color:var(--accent)}
+.workflow-tabs{border-color:var(--edge)}
+.workflow-tabs .stage{border-color:var(--edge);color:var(--ink)}
+.workflow-tabs .stage strong,.workflow-readout h3,.stack-title,.evidence-item h3,.manifesto-quote p{color:var(--ink)}
+.workflow-tabs .stage small,.lede,.stack-desc,.evidence-item p,.manifesto-copy .lede{color:var(--sub)}
+.workflow-tabs .stage.active{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 13%,transparent),transparent);box-shadow:inset 3px 0 var(--accent)}
+.workflow-visual{background:radial-gradient(ellipse at 55% 45%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 48%),linear-gradient(145deg,var(--surface2),var(--surface))}
+.workflow-visual:before{background-image:linear-gradient(color-mix(in srgb,var(--accent) 9%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--accent) 9%,transparent) 1px,transparent 1px)}
+.workflow-readout p,.manifesto-quote p{color:var(--copy)}
+.readout-state,.workflow-tags span{border-color:var(--edge);color:var(--accent)}
+.manifesto-image:after{background:linear-gradient(0deg,rgba(4,8,13,.72),transparent 58%),linear-gradient(90deg,rgba(4,8,13,.08),rgba(4,8,13,.2))}
+.image-index{color:#f1f5f6}
+.archive-frame{background:var(--surface2)}
+.archive-frame:after{background:linear-gradient(0deg,rgba(3,8,13,.78),transparent 62%)}
+.stack-row:hover{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.stack-no,.evidence-item .n{color:var(--signal)}
+.stack-type,.archive-label span{color:var(--accent)}
+.lab-interface{background:var(--surface);border-color:var(--edge-strong);box-shadow:0 25px 70px rgba(0,0,0,.09)}
+.lab-aside{border-color:var(--edge)}
+.lab-aside h3{color:var(--ink)}
+.lab-aside p,.lab-endpoint{color:var(--sub)}
+.lab-endpoint strong{color:var(--accent)}
+.lab-controls .field label{color:var(--sub)}
+.lab-controls .field textarea,.lab-controls .field input{background:var(--surface2);color:var(--ink);border-color:var(--edge)}
+.lab-controls .field textarea::placeholder,.lab-controls .field input::placeholder{color:var(--sub)}
+.lab-controls .lab-actions button{background:var(--accent);border-color:var(--accent);color:#fff}
+.lab-controls .lab-actions button.secondary{background:transparent;color:var(--accent)}
+.lab-controls .output{background:var(--surface2);border-color:var(--edge);color:var(--ink)}
+.research-status{border-color:color-mix(in srgb,var(--signal) 45%,transparent)!important}
+.research-status strong{color:var(--signal)}
+.research-status p{color:var(--copy)}
+.closing{background:linear-gradient(100deg,rgba(5,10,15,.92),rgba(5,10,15,.75)),url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=78') center/cover}
+footer{background:var(--surface);border-color:var(--edge)}
+.footer-inner{color:var(--sub)}
+/* Keep the approved cinematic hero dark in both modes; the research canvas changes theme. */
+:root.light .hero{color:#e8f0f3}
+:root.light .hero-copy>p{color:#d1dce1}
+:root.light .hero-meta{color:#b6c5cc}
+:root.light .hero:before{background:linear-gradient(90deg,rgba(5,6,10,.97) 0%,rgba(5,6,10,.78) 48%,rgba(5,6,10,.42) 100%),linear-gradient(0deg,#070b10,transparent 30%,rgba(5,6,10,.3))}
+:root.light .topbar{background:linear-gradient(180deg,rgba(5,6,10,.96),rgba(5,6,10,.6),transparent)}
+:root.light .nav a{color:#c0ccd2}
+:root.light .nav a:hover,:root.light .nav a.active{color:#63d5df}
+:root.light .brand{color:#e8f0f3}
+@media(max-width:640px){#themeBtn{left:14px;bottom:14px;width:42px;height:42px}.theme-tip{left:64px;bottom:27px}}
+</style>
 </head>
 <body>
-<div class="gridbg"></div><div class="grain"></div><div id="progress"></div>
+<button id="themeBtn" type="button" aria-label="Switch to light mode" title="Switch to light mode">☼</button><span class="theme-tip" aria-hidden="true">APPEARANCE / LIGHT–DARK</span><div class="gridbg"></div><div class="grain"></div><div id="progress"></div>
 <header class="topbar"><a class="brand" href="#top"><i></i>AHE <span>// RESEARCH_OS</span></a><nav class="nav" id="nav"><a href="#experience">System</a><a href="#field-notes">Field notes</a><a href="#archive">Archive</a><a href="#architecture">Architecture</a><a href="#lab">API lab</a><a href="#research">Evaluation</a><a class="repo" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">SDK ↗</a></nav><button id="menu" aria-label="Open navigation" aria-expanded="false">☰</button></header>
 <aside id="rail" aria-label="Section navigation"><button class="rl active" data-target="top">01<span>Overview</span></button><button class="rl" data-target="experience">02<span>System</span></button><button class="rl" data-target="field-notes">03<span>Field notes</span></button><button class="rl" data-target="archive">04<span>Archive</span></button><button class="rl" data-target="architecture">05<span>Architecture</span></button><button class="rl" data-target="lab">06<span>API lab</span></button><button class="rl" data-target="research">07<span>Evaluation</span></button></aside>
 <main>
 <section class="hero" id="top"><div class="hero-photo"></div><div class="wrap hero-inner">
-<div class="hero-copy"><div class="eyebrow">Adaptive Hashing Encryption / Research initiative</div><h1>MAKE<br>CRYPTOGRAPHY<br><span class="outline">VISIBLE.</span></h1><p>AHE is an experimental modular encryption workflow designed to make each cryptographic operation inspectable—from key material and post-quantum components to authenticated payload protection and verification.</p><div class="hero-actions"><a class="btn primary" href="#experience">Explore the system <b>↗</b></a><a class="btn ghost" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View SDK <b>↗</b></a></div><div class="hero-meta"><span>Modular cryptographic research</span><span>PQC-aware workflow</span><span>Experimental implementation</span></div></div>
+<div class="hero-copy"><div class="eyebrow">Adaptive Hashing Encryption / Research initiative</div><h1>MAKE<br>CRYPTOGRAPHY<br><span class="outline">VISIBLE.</span></h1><p>AHE is an experimental encryption research project. It brings key derivation, post-quantum components and authenticated encryption into one inspectable workflow—so each stage can be tested, measured and reviewed.</p><div class="hero-actions"><a class="btn primary" href="#experience">Explore the system <b>↗</b></a><a class="btn ghost" href="https://github.com/hak3du/AHE_SDK" target="_blank" rel="noreferrer">View SDK <b>↗</b></a></div><div class="hero-meta"><span>Modular cryptographic research</span><span>PQC-aware workflow</span><span>Experimental implementation</span></div></div>
 <div class="system-window" aria-label="AHE system interface preview"><div class="window-top"><div class="lights"><i></i><i></i><i></i></div><span>AHE / PIPELINE MONITOR</span><span>BUILD 0.4</span></div><div class="window-body"><div class="window-label"><span>PAYLOAD TRANSFORMATION</span><span>FIG 01 — LIVE MODEL</span></div><div class="signal"><svg viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="wave" x1="0" x2="1"><stop stop-color="#4ec9d4" stop-opacity="0"/><stop offset=".45" stop-color="#4ec9d4"/><stop offset="1" stop-color="#c8a45c" stop-opacity=".7"/></linearGradient></defs><path d="M0 66 L35 66 48 62 58 73 69 39 82 89 94 57 107 66 130 66 144 60 155 71 167 25 180 96 192 62 210 66 235 66 250 56 261 77 273 48 285 83 298 65 325 66 342 66 355 57 368 73 380 33 393 91 405 61 420 66 448 66 462 58 474 72 486 42 498 85 511 65 535 66 600 66" fill="none" stroke="url(#wave)" stroke-width="2"/><path d="M0 66H600" stroke="#4ec9d4" stroke-opacity=".14" stroke-dasharray="3 8"/></svg><div class="scan"></div></div><div class="packet"><div class="packet-step current"><b>01 / INPUT</b><small>Payload<br>ingestion</small></div><div class="packet-step"><b>02 / KEY</b><small>Derive +<br>encapsulate</small></div><div class="packet-step"><b>03 / SEAL</b><small>AES-GCM<br>protection</small></div><div class="packet-step"><b>04 / VERIFY</b><small>Integrity<br>check</small></div></div><div class="window-foot"><span class="live-dot">MODEL READY</span><span>INSPECTABLE BY DESIGN</span></div></div></div>
 </div></section>
 <section class="section" id="experience">
  <div class="wrap">
-  <div class="section-intro reveal"><div><div class="kicker">01 / SYSTEM STUDY</div><h2 class="display">A workflow<br>you can inspect.</h2></div><p class="lede">AHE is easier to evaluate when its moving parts are visible. Select a stage. Follow the signal. Separate the intended architecture from what has actually been integrated.</p></div>
-  <div class="workflow-topline"><span>ADAPTIVE HASHING ENCRYPTION / PROCESS VIEW</span><span>MODEL · 04 STAGES</span></div>
+  <div class="section-intro reveal"><div><div class="kicker">01 / HOW THE DATA IS PROTECTED</div><h2 class="display">From input<br>to verification.</h2></div><p class="lede">Follow the path a message takes through the proposed AHE workflow. Each stage has a defined job, and each can be examined independently. The diagram is conceptual; implementation status is stated separately.</p></div>
+  <div class="workflow-topline"><span>THE PROPOSED PROTECTION FLOW</span><span>FOUR DISTINCT RESPONSIBILITIES</span></div>
   <div class="workflow-console">
    <div class="workflow-tabs" role="tablist" aria-label="AHE workflow stages">
     <button class="stage active" data-stage="0" role="tab" aria-selected="true"><span class="num">01</span><span><strong>Input & derivation</strong><small>Payload / entropy / KDF</small></span><em>↗</em></button>
@@ -222,13 +303,13 @@ body{background:#070a0e}
  <div class="wrap">
   <div class="manifesto">
    <div class="manifesto-image reveal"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1500&q=82" alt="Close-up of a printed circuit board and electronic components" loading="lazy"><div class="image-index">FIG. 01 / COMPUTE SUBSTRATE · FIELD IMAGE</div></div>
-   <div class="manifesto-copy reveal"><div><div class="kicker">02 / RESEARCH POSITION</div><h2 class="display">Security is<br>not a stack<br>of buzzwords.</h2><p class="lede">The interesting question is not how many cryptographic components can be combined. It is whether every component has a defined responsibility, a defensible parameter set and evidence that it behaves as intended.</p></div><div><div class="manifesto-quote"><b>“</b><p>Make the cryptographic workflow legible enough to challenge, measure and improve.</p></div><div class="note-meta"><span>AHE / DESIGN PRINCIPLE 001</span><span>RESEARCH NOTE · 2026</span></div></div></div>
+   <div class="manifesto-copy reveal"><div><div class="kicker">02 / WHY THIS DESIGN</div><h2 class="display">More than<br>an encryption<br>black box.</h2><p class="lede">AHE explores a simple engineering principle: do not hide the cryptographic process behind a single operation. Make the key derivation, post-quantum component, payload protection and verification steps visible enough to test and compare.</p></div><div><div class="manifesto-quote"><b>“</b><p>Understand each stage. Measure its cost. Test its behaviour.</p></div><div class="note-meta"><span>AHE / DESIGN PRINCIPLE 001</span><span>RESEARCH NOTE · 2026</span></div></div></div>
   </div>
  </div>
 </section>
 <section class="section" id="archive">
  <div class="wrap">
-  <div class="archive-head reveal"><div><div class="kicker">03 / VISUAL FIELD GUIDE</div><h2 class="display">The terrain<br>around the cipher.</h2></div><p class="lede">AHE sits at the intersection of software, hardware and infrastructure. These are not decorative claims of capability—just the engineering terrain the work must account for.</p></div>
+  <div class="archive-head reveal"><div><div class="kicker">03 / THE ENGINEERING CONTEXT</div><h2 class="display">Built for the<br>real system.</h2></div><p class="lede">Cryptography runs inside real software and infrastructure. Key handling, performance, interoperability and operational constraints matter as much as the algorithm selected.</p></div>
   <div class="archive-strip">
    <article class="archive-frame reveal"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=82" alt="Rows of servers in a data centre" loading="lazy"><div class="archive-label"><strong>Infrastructure</strong><span>01 / OPERATIONS</span></div></article>
    <article class="archive-frame reveal"><img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=82" alt="Stars across a night sky" loading="lazy"><div class="archive-label"><strong>Quantum horizon</strong><span>02 / THREAT</span></div></article>
@@ -238,7 +319,7 @@ body{background:#070a0e}
 </section>
 <section class="section" id="architecture">
  <div class="wrap">
-  <div class="architecture-lead reveal"><div><div class="kicker">04 / IMPLEMENTATION MAP</div><h2 class="display">Separate the<br>responsibilities.</h2></div><p class="lede">A modular design only becomes useful when the boundaries are explicit. Each layer needs its own inputs, outputs, failure conditions and test evidence. The map below describes the intended separation—not a blanket claim that every component is production-ready.</p></div>
+  <div class="architecture-lead reveal"><div><div class="kicker">04 / WHAT EACH LAYER DOES</div><h2 class="display">Four layers.<br>Clear roles.</h2></div><p class="lede">The design separates key derivation, post-quantum operations, authenticated encryption and verification. This makes it possible to identify what is implemented, what remains experimental and what evidence is still needed.</p></div>
   <div class="stack-map reveal">
    <div class="stack-row"><span class="stack-no">LAYER / 01</span><div><h3 class="stack-title">Derivation & entropy</h3><span class="stack-type">KDF · INPUT VALIDATION · KEY LIFECYCLE</span></div><p class="stack-desc">Define how material is derived, which entropy sources are trusted, and how parameters and key lifetimes are controlled.</p></div>
    <div class="stack-row"><span class="stack-no">LAYER / 02</span><div><h3 class="stack-title">Post-quantum components</h3><span class="stack-type">ML-KEM · SIGNATURES · LIBOQS</span></div><p class="stack-desc">Specify the selected primitive and parameter set. Keep encapsulation, signatures and hybrid composition distinct.</p></div>
@@ -249,7 +330,7 @@ body{background:#070a0e}
 </section>
 <section class="section" id="lab">
  <div class="wrap">
-  <div class="lab-header reveal"><div><div class="kicker">05 / INTERACTIVE TEST ENVIRONMENT</div><h2 class="display">Touch the<br>interface.</h2></div><p class="lede">A controlled test bench for the configured API. Use synthetic text only. The service indicator reports a real health check; it does not simulate an online state.</p></div>
+  <div class="lab-header reveal"><div><div class="kicker">05 / TRY THE API</div><h2 class="display">Send a test<br>through the API.</h2></div><p class="lede">If the research API is reachable, submit a synthetic message and inspect the response. This is a development test interface, not a production encryption service.</p></div>
   <div class="lab-interface reveal">
    <aside class="lab-aside"><div><div class="kicker">AHE / REMOTE ENDPOINT</div><h3>Run a request.<br>Read the response.</h3><p>Submit a non-sensitive test payload and inspect the API response. This interface does not represent a production cryptographic service.</p></div><div class="lab-endpoint">SERVICE STATUS<strong id="apiStatusText">CHECKING SERVICE</strong><div id="apiStatus" class="api-status"><i></i><span>LIVE HEALTH CHECK</span></div></div></aside>
    <div class="lab-controls"><div class="field"><label for="message">01 / Test payload</label><textarea id="message" rows="3" placeholder="Enter non-sensitive test text..."></textarea></div><div class="field"><label for="password">02 / Test passphrase</label><input id="password" type="password" autocomplete="off" placeholder="Temporary test passphrase"></div><div class="lab-actions"><button id="encryptBtn">Encrypt payload ↗</button><button class="secondary" id="decryptBtn">Decrypt last payload</button></div><pre class="output" id="output" aria-live="polite">Awaiting request. API responses will appear here.</pre></div>
@@ -258,7 +339,7 @@ body{background:#070a0e}
 </section>
 <section class="section" id="research">
  <div class="wrap">
-  <div class="section-intro reveal"><div><div class="kicker">06 / VALIDATION PROTOCOL</div><h2 class="display">Evidence<br>before claims.</h2></div><p class="lede">Cryptographic systems earn trust through specifications, independent analysis and reproducible results—not visual complexity or the number of layers in a diagram.</p></div>
+  <div class="section-intro reveal"><div><div class="kicker">06 / HOW THE RESEARCH IS EVALUATED</div><h2 class="display">Measure it.<br>Then make claims.</h2></div><p class="lede">AHE should be judged by reproducible evidence: correctness tests, tamper tests, performance measurements, dependency review and independent cryptographic analysis.</p></div>
   <div class="evidence-grid reveal">
    <article class="evidence-item"><span class="n">01 / THREAT MODEL</span><h3>Define the adversary.</h3><p>Document assets, trust boundaries, attacker capabilities, assumptions and the security properties each component is intended to provide.</p></article>
    <article class="evidence-item"><span class="n">02 / MEASUREMENT</span><h3>Benchmark the build.</h3><p>Measure latency, throughput, memory, key and ciphertext sizes, entropy characteristics and failure behaviour against reproducible baselines.</p></article>
@@ -271,6 +352,18 @@ body{background:#070a0e}
 </main><footer><div class="wrap footer-inner"><span>AHE // RESEARCH_OS</span><span>ADAPTIVE HASHING ENCRYPTION · EXPERIMENTAL RESEARCH</span><span>© <b id="year"></b> HAK3DU</span></div></footer>
 <script>
 (()=>{const API="https://lectures-aaa-dsl-suggestions.trycloudflare.com";const $=id=>document.getElementById(id);$("year").textContent=new Date().getFullYear();
+const themeBtn=$("themeBtn");
+function setTheme(mode){
+ const light=mode==="light";
+ document.documentElement.classList.toggle("light",light);
+ themeBtn.textContent=light?"☾":"☼";
+ themeBtn.setAttribute("aria-label",light?"Switch to dark mode":"Switch to light mode");
+ themeBtn.title=light?"Switch to dark mode":"Switch to light mode";
+ try{localStorage.setItem("ahe-theme",mode)}catch(e){}
+}
+setTheme(document.documentElement.classList.contains("light")?"light":"dark");
+themeBtn.addEventListener("click",()=>setTheme(document.documentElement.classList.contains("light")?"dark":"light"));
+
 const menu=$("menu"),nav=$("nav");menu.addEventListener("click",()=>{const open=nav.classList.toggle("open");menu.setAttribute("aria-expanded",String(open));});nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
 const stages=[
 {title:"Input & derivation",eyebrow:"STAGE 01 / INPUT",desc:"The workflow begins with a defined payload and explicit context. Key derivation parameters, entropy sources and key lifecycle need to be observable and testable.",tags:["PAYLOAD","KDF","KEY LIFECYCLE"]},
