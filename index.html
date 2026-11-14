@@ -319,6 +319,20 @@ footer{background:var(--surface);border-color:var(--edge)}
 @media(max-width:1050px){.hero-cinematic .hero-inner{grid-template-columns:1fr;gap:10px}.hero-cinematic .hero-copy{max-width:760px;padding-bottom:0}.hero-stage{height:570px;max-height:none;min-height:530px;width:min(850px,100%);margin:-5px auto 0}.hero-cinematic{padding-bottom:100px}}
 @media(max-width:640px){.hero-cinematic{padding:120px 0 80px}.hero-cinematic .hero-inner{width:calc(100% - 36px)}.hero-cinematic h1{font-size:clamp(49px,13.5vw,76px)}.hero-cinematic .hero-copy>p{font-size:13px}.hero-cinematic .hero-meta{font-size:7px;gap:10px}.hero-stage{height:390px;min-height:390px;margin-top:8px}.stage-image-earth{width:78%;height:69%;right:0;top:9%}.stage-image-circuit{width:47%;height:35%;left:-1%;top:20%}.stage-image-server{width:53%;height:32%;right:-1%;bottom:9%}.stage-core{width:145px;height:145px;left:49%}.stage-core strong{font-size:13px}.core-overline{font-size:6px}.core-index{font-size:5px}.stage-label{font-size:6px;padding:7px 8px}.stage-label-top{left:0;top:2%}.stage-label-bottom{right:0;bottom:1%}.stage-caption{font-size:6px}.hero-bottomline{left:18px;right:18px;bottom:18px;font-size:6px;letter-spacing:.1em}.hero-bottomline span:nth-child(3){display:none}}
 @media(prefers-reduced-motion:reduce){.stage-constellation,.stage-core:before,.stage-core:after{animation:none!important}.stage-image img{transition:none}}
+
+/* The hero's visual sequence: each diagram image becomes the full-bleed scene. */
+.hero-cinematic .hero-bg-rotator{position:absolute;inset:0;z-index:-4;overflow:hidden;background:#05080d}
+.hero-cinematic .hero-bg-slide{position:absolute;inset:-2%;background-position:center;background-size:cover;opacity:0;transform:scale(1.08);filter:saturate(.72) contrast(1.08);transition:opacity 1.5s ease,transform 8s ease}
+.hero-cinematic .hero-bg-slide.is-active{opacity:.58;transform:scale(1)}
+.hero-cinematic .hero-photo{opacity:0!important}
+.hero-cinematic:before{background:linear-gradient(90deg,rgba(4,7,12,.94) 0%,rgba(4,7,12,.79) 40%,rgba(4,7,12,.47) 76%,rgba(4,7,12,.35) 100%),linear-gradient(0deg,#05080d 0%,transparent 30%,rgba(5,8,13,.32) 100%)}
+.hero-stage .stage-image{transition:opacity 1s ease,transform 1.15s cubic-bezier(.16,1,.3,1),width 1.15s cubic-bezier(.16,1,.3,1),height 1.15s cubic-bezier(.16,1,.3,1),left 1.15s cubic-bezier(.16,1,.3,1),right 1.15s cubic-bezier(.16,1,.3,1),top 1.15s cubic-bezier(.16,1,.3,1)}
+.hero-stage .stage-image:not(.is-active){opacity:.34;filter:saturate(.55);transform:scale(.82) rotateY(0) rotateZ(0)}
+.hero-stage .stage-image.is-active{left:14%;right:auto;top:11%;bottom:auto;width:72%;height:76%;z-index:4;opacity:.92;transform:rotateY(0) rotateZ(0) scale(1);box-shadow:0 35px 100px rgba(0,0,0,.58),0 0 70px rgba(43,167,190,.16)}
+.hero-stage .stage-image.is-active img{transform:scale(1.025);filter:saturate(.9) contrast(1.08)}
+.hero-stage .stage-image:not(.is-active):after{opacity:.7}
+@media(max-width:640px){.hero-cinematic .hero-bg-slide.is-active{opacity:.48}.hero-stage .stage-image.is-active{left:10%;width:80%;height:72%;top:13%}}
+@media(prefers-reduced-motion:reduce){.hero-cinematic .hero-bg-slide,.hero-stage .stage-image{transition:none!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -327,6 +341,11 @@ footer{background:var(--surface);border-color:var(--edge)}
 <aside id="rail" aria-label="Section navigation"><button class="rl active" data-target="top">01<span>Overview</span></button><button class="rl" data-target="experience">02<span>System</span></button><button class="rl" data-target="field-notes">03<span>Field notes</span></button><button class="rl" data-target="archive">04<span>Archive</span></button><button class="rl" data-target="architecture">05<span>Architecture</span></button><button class="rl" data-target="lab">06<span>API lab</span></button><button class="rl" data-target="research">07<span>Evaluation</span></button></aside>
 <main>
 <section class="hero hero-cinematic" id="top">
+  <div class="hero-bg-rotator" aria-hidden="true">
+    <div class="hero-bg-slide is-active" style="background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2200&q=85')"></div>
+    <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2200&q=85')"></div>
+    <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=2200&q=85')"></div>
+  </div>
   <div class="hero-photo" aria-hidden="true"></div>
   <div class="hero-atmosphere" aria-hidden="true"></div>
   <div class="wrap hero-inner">
@@ -443,6 +462,22 @@ footer{background:var(--surface);border-color:var(--edge)}
 <script>
 (()=>{const API="https://lectures-aaa-dsl-suggestions.trycloudflare.com";const $=id=>document.getElementById(id);$("year").textContent=new Date().getFullYear();
 const themeBtn=$("themeBtn");
+const heroSlides=[...document.querySelectorAll(".hero-bg-slide")];
+const heroPanels=[...document.querySelectorAll(".hero-stage .stage-image")];
+if(heroSlides.length===heroPanels.length&&heroSlides.length){
+ let heroFrame=0;
+ const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ const showHeroFrame=i=>{
+  heroFrame=(i+heroSlides.length)%heroSlides.length;
+  heroSlides.forEach((el,n)=>el.classList.toggle("is-active",n===heroFrame));
+  heroPanels.forEach((el,n)=>el.classList.toggle("is-active",n===heroFrame));
+ };
+ showHeroFrame(0);
+ if(!reducedMotion){
+  let heroTimer=setInterval(()=>showHeroFrame(heroFrame+1),6800);
+  document.addEventListener("visibilitychange",()=>{clearInterval(heroTimer);if(!document.hidden)heroTimer=setInterval(()=>showHeroFrame(heroFrame+1),6800);});
+ }
+}
 function setTheme(mode){
  const light=mode==="light";
  document.documentElement.classList.toggle("light",light);
